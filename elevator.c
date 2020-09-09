@@ -67,19 +67,19 @@ PersonList* enterElevator ( Elevator *e, PersonList *list) {
 
 void stepElevator( Building *b){
 
-  int current = ascenseur -> currentFloor; 
-  int target  = ascenseur -> targetFloo
-  Elevator* ascenseur = (acsenseur*) malloc(sizeof(Elevator)); 
   
-  if ( current == target ) {
-   
-  
-  } else { 
+  if ( current == target ){
+    exitElevator( b -> elevator);
+    enterElevator( b -> elevator, b -> waitingLists);
+
+  } else {
+
    if ( target - current > 0 ){
-    ascenseur -> currentFloor += 1; 
+    b -> elevator -> currentFloor  += 1; 
    } else { 
-    ascenseur -> currentFloor -= 1; 
+    b -> elevator -> currentFloor -= 1; 
    }
+
   }
 
 
