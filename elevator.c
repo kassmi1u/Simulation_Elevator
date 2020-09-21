@@ -26,8 +26,33 @@ Building *create_building(int nbFloor, Elevator *elevator, PersonList **waitingL
 }
 
 
-PersonList* exitElevator ( Elevator *e) {
-   
+PersonList* exitElevator ( Elevator *e,PersonList *previous) {
+  PersonList *temp;
+  if(e->persons!=NULL){
+    if(previous==NULL){
+      if(e->persons->person->dest != e->currentFloor){
+        exitElevator(e,e->persons);
+      }else{
+        temp = e->persons;
+        e->persons = e->persons->next;
+        exitElevator(e,NULL);
+      }
+    }else{
+      if(previous->next!=NULL){
+        if(previous->next->person->dest != e->currentFloor){
+        exitElevator(e,previous->next);
+        }else{
+          temp = previous->next;
+          previous->next = previous->next->next;
+          exitElevator(e,previous);
+        }
+      }
+      
+    }
+    return NULL;
+  }
+
+/*
        int current = e->currentFloor; 
        int destination = e->persons->person->dest;
    
@@ -38,26 +63,41 @@ PersonList* exitElevator ( Elevator *e) {
    
            // Dans ce cas, on passe directement à la prochaine personne 
            e->persons = e->persons->next;
-           exitElevator(e);
+           exitElevator(e,NULL);
    
        } else {
 
            sort->person = e->persons->person;
            // pointer sur la prochaine person 
            e->persons = e->persons->next;
-           sort = sort->next;         
-           exitElevator(e);
+           sort = sort->next;
+           exitElevator(e,NULL);
        }
-       return sort;
+       return sort;*/
 }
 
 
 
 PersonList* enterElevator ( Elevator *e, PersonList *waitingList) {
-  if((e->capacity > sizeof(e->persons)) ){
-    e->persons = insert( waitingList->person , e->persons );
-    return enterElevator(e,waitingList->next);
+  PersonList *P;
+  int count=0;
+  if (waitingList!=NULL)
+  {
+    P = e->persons;
+    while (P!=NULL)
+    {
+      P = P->next;
+      count++;
+    }
+
+    if(e->capacity > count ){
+      e->persons = insert( waitingList->person , e->persons );
+
+      return enterElevator(e,waitingList->next);
+    }
   }
+  
+  
   return waitingList;
 }
 
@@ -69,8 +109,8 @@ void stepElevator( Building *b){
 
   if ( current == target ){
 
-    PersonList* exitElevator ( Elevator *e);
-    PersonList* enterElevator ( Elevator *e, PersonList *list);
+    exitElevator ( b->elevator,NULL);
+    b->waitingLists[b->elevator->currentFloor] = enterElevator ( b->elevator, b->waitingLists[b->elevator->currentFloor]);
   } else { 
     
     if ( target - current > 0 ){

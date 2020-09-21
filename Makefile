@@ -24,4 +24,4 @@ clean :
 	rm -f *.o main
 
 run : main
-    ./main
+	./main
