@@ -22,6 +22,7 @@ person.o: person.c person.h
 
 clean :
 	rm -f *.o main
+	
 
 run : main
 	./main
