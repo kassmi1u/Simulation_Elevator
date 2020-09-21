@@ -52,28 +52,6 @@ PersonList* exitElevator ( Elevator *e,PersonList *previous) {
     return NULL;
   }
 
-/*
-       int current = e->currentFloor; 
-       int destination = e->persons->person->dest;
-   
-       PersonList* sort = (PersonList*) malloc(sizeof(PersonList));
-   
-       // il faut vérifier si la destination des personnes correspondent au 'currentFloor'
-       if ( current != destination ){
-   
-           // Dans ce cas, on passe directement à la prochaine personne 
-           e->persons = e->persons->next;
-           exitElevator(e,NULL);
-   
-       } else {
-
-           sort->person = e->persons->person;
-           // pointer sur la prochaine person 
-           e->persons = e->persons->next;
-           sort = sort->next;
-           exitElevator(e,NULL);
-       }
-       return sort;*/
 }
 
 
