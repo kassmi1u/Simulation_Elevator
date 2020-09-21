@@ -10,6 +10,7 @@ typedef struct _Elevator {
     PersonList *persons; // personnes dans la cabine
 } Elevator;
 
+
 typedef struct _Building {
     int nbFloor; // nombre d’étage des l’immeuble
     Elevator *elevator; // la cabine d’ascenseur
